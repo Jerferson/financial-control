@@ -2,7 +2,9 @@
   "name": "financial-control",
   "private": true,
   "scripts": {
-    "dev": "concurrently --names \"API,WEB\" --prefix-colors \"blue,green\" --kill-others-on-fail \"npm --prefix api run start:dev\" \"npm --prefix web run start\""
+    "setup": "node scripts/setup.js",
+    "dev": "concurrently --names \"API,WEB\" --prefix-colors \"blue,green\" --kill-others-on-fail \"npm --prefix api run start:dev\" \"npm --prefix web run start\"",
+    "stop": "docker compose down"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

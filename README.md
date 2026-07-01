@@ -6,7 +6,7 @@ A personal finance management app built with **NestJS + Prisma** on the backend 
 
 | Tool | Min version | Install |
 |---|---|---|
-| [Node.js](https://nodejs.org) | 20+ | `brew install node` |
+| [Node.js](https://nodejs.org) | 20+ | `brew install node` / [nodejs.org](https://nodejs.org) |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | any | official site |
 
 > Docker is used only for PostgreSQL. The API and frontend run directly on your local Node.
@@ -21,13 +21,15 @@ git clone --recurse-submodules https://github.com/Jerferson/financial-control.gi
 cd financial-control
 
 # 2. Install everything and set up the database (run once)
-make setup
+make setup          # macOS / Linux
+npm run setup       # Windows (PowerShell / CMD)
 
 # 3. Start the development server
-make dev
+make dev            # macOS / Linux
+npm run dev         # Windows
 ```
 
-Once `make dev` is running:
+Once running:
 
 | Service | URL |
 |---|---|
@@ -39,12 +41,12 @@ Once `make dev` is running:
 
 ## Commands
 
-```bash
-make setup   # install deps, start DB, run migrations and seed
-make dev     # start DB + API + Web in parallel (with hot reload)
-make stop    # stop Docker containers
-make reset   # wipe the database and run setup from scratch
-```
+| Action | macOS / Linux | Windows |
+|---|---|---|
+| First-time setup | `make setup` | `npm run setup` |
+| Start dev servers | `make dev` | `npm run dev` |
+| Stop database | `make stop` | `npm run stop` |
+| Full reset | `make reset` | `npm run stop && npm run setup` |
 
 ---
 
@@ -52,16 +54,17 @@ make reset   # wipe the database and run setup from scratch
 
 ```
 financial-control/
-├── api/                    # Backend — NestJS + Prisma + PostgreSQL
+├── api/                    # Backend — NestJS + Prisma + PostgreSQL (submodule)
 │   ├── prisma/             # Schema, migrations and seed
 │   └── src/
 │       ├── modules/        # Feature modules (accounts, transactions, etc.)
 │       └── common/         # Shared filters, pipes, decorators
-├── web/                    # Frontend — Angular 20 (standalone components)
+├── web/                    # Frontend — Angular 20 (submodule)
 │   └── src/
 │       ├── app/features/   # Pages (dashboard, transactions, transfers, etc.)
 │       ├── app/core/       # Services, models, interceptors
 │       └── app/shared/     # Reusable components and pipes
+├── scripts/setup.js        # Cross-platform setup script
 └── docker-compose.yml      # Database only
 ```
 
@@ -69,9 +72,9 @@ financial-control/
 
 ## Environment variables
 
-`make setup` automatically copies `api/.env.example` → `api/.env` inside the `api` submodule. The default values work out of the box with the provided `docker-compose.yml`.
+Setup automatically copies `api/.env.example` → `api/.env`. The default values work out of the box with the provided `docker-compose.yml`.
 
-To customise, edit `api/.env` after running `make setup`:
+To customise, edit `api/.env` after setup:
 
 ```bash
 DATABASE_URL="postgresql://postgres:postgres@localhost:5435/financial_control?schema=public"
@@ -83,7 +86,10 @@ NODE_ENV=development
 
 ## Troubleshooting
 
-**Cannot connect to the database after `make dev`**
+**`make` not found (Windows)**  
+Use the `npm run` equivalents shown in the commands table above, or install `make` via [Chocolatey](https://chocolatey.org): `choco install make`.
+
+**Cannot connect to the database**
 ```bash
 docker compose ps        # check if the container is running
 docker compose logs db   # view database logs
@@ -99,5 +105,6 @@ git submodule update --init --recursive
 
 **Full reset**
 ```bash
-make reset   # drops Docker volumes and runs setup again
+make reset          # macOS / Linux
+npm run stop && npm run setup   # Windows
 ```
