@@ -16,8 +16,8 @@ A personal finance management app built with **NestJS + Prisma** on the backend 
 ## Quick start
 
 ```bash
-# 1. Clone the repository
-git clone <repo-url>
+# 1. Clone the repository (--recurse-submodules pulls api + web)
+git clone --recurse-submodules <repo-url>
 cd financial-control
 
 # 2. Install everything and set up the database (run once)
