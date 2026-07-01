@@ -35,7 +35,7 @@ Once running:
 |---|---|
 | Frontend (Angular) | http://localhost:4200 |
 | API (NestJS) | http://localhost:3002 |
-| API docs (Swagger) | http://localhost:3002/api |
+| API docs (Swagger) | http://localhost:3002/docs |
 
 ---
 
