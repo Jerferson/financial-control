@@ -17,7 +17,7 @@ A personal finance management app built with **NestJS + Prisma** on the backend 
 
 ```bash
 # 1. Clone the repository (--recurse-submodules pulls api + web)
-git clone --recurse-submodules <repo-url>
+git clone --recurse-submodules https://github.com/Jerferson/financial-control.git
 cd financial-control
 
 # 2. Install everything and set up the database (run once)
@@ -69,10 +69,11 @@ financial-control/
 
 ## Environment variables
 
-`make setup` automatically copies `api/.env.example` → `api/.env`. To customise:
+`make setup` automatically copies `api/.env.example` → `api/.env` inside the `api` submodule. The default values work out of the box with the provided `docker-compose.yml`.
+
+To customise, edit `api/.env` after running `make setup`:
 
 ```bash
-# api/.env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5435/financial_control?schema=public"
 PORT=3002
 NODE_ENV=development
@@ -90,6 +91,11 @@ docker compose logs db   # view database logs
 
 **Port 5435 already in use**  
 Change the host port in `docker-compose.yml` (`5436:5432`) and update `DATABASE_URL` in `api/.env` accordingly.
+
+**Submodules are empty after cloning**
+```bash
+git submodule update --init --recursive
+```
 
 **Full reset**
 ```bash
