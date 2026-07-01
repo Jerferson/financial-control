@@ -4,7 +4,8 @@
   "scripts": {
     "setup": "node scripts/setup.js",
     "dev": "concurrently --names \"API,WEB\" --prefix-colors \"blue,green\" --kill-others-on-fail \"npm --prefix api run start:dev\" \"npm --prefix web run start\"",
-    "stop": "docker compose down"
+    "stop": "docker compose down",
+    "reset": "node scripts/reset.js"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
